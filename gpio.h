@@ -40,35 +40,6 @@ extern "C"
 
 typedef enum
 {
-  eGPIOA = GPIOA,
-  eGPIOB = GPIOB,
-  eGPIOC = GPIOC,
-  eGPIOD = GPIOD,
-  eGPIOE = GPIOE
-} eGPIOx;
-
-typedef enum
-{
-  eMODEx_Port_0  = GPIO_MODER_MODE0_Pos,
-  eMODEx_Port_1  = GPIO_MODER_MODE1_Pos,
-  eMODEx_Port_2  = GPIO_MODER_MODE2_Pos,
-  eMODEx_Port_3  = GPIO_MODER_MODE3_Pos,
-  eMODEx_Port_4  = GPIO_MODER_MODE4_Pos,
-  eMODEx_Port_5  = GPIO_MODER_MODE5_Pos,
-  eMODEx_Port_6  = GPIO_MODER_MODE6_Pos,
-  eMODEx_Port_7  = GPIO_MODER_MODE7_Pos,
-  eMODEx_Port_8  = GPIO_MODER_MODE8_Pos,
-  eMODEx_Port_9  = GPIO_MODER_MODE9_Pos,
-  eMODEx_Port_10 = GPIO_MODER_MODE10_Pos,
-  eMODEx_Port_11 = GPIO_MODER_MODE11_Pos,
-  eMODEx_Port_12 = GPIO_MODER_MODE12_Pos,
-  eMODEx_Port_13 = GPIO_MODER_MODE13_Pos,
-  eMODEx_Port_14 = GPIO_MODER_MODE14_Pos,
-  eMODEx_Port_15 = GPIO_MODER_MODE015_Pos
-} eMODEx_Port;
-
-typedef enum
-{
   eMODE_INPUT_MODE        = (0b00),
   eMODE_OUTPUT_MODE       = (0b01),
   eMODE_ALTERNATE_MODE    = (0b10),
@@ -98,15 +69,23 @@ typedef enum
 
 typedef struct
 {
-  eGPIOx GPIOx;
-
-  eMODEx_Pos MODEx_Port;
-  eMODER   MODER;
-
-  eOTYPER  OTYPER;
-  eOSPEEDR OSPEEDR;
-  ePUPDR   PUPDR;
+  GPIO_TypeDef  *GPIOx;           /*!< Specifies the GPIO pins to be configured.
+                                    Example: GPIOE */
+  uint32_t MODEx_Pos;
+  eMODER   MODER;                 /*!< Specifies the operating mode for the selected pins.
+                                    Example: GPIO_MODER_MODE5_Pos */
+  uint32_t OTYPEx_Pos;
+  eOTYPER  OTYPER;                /*!< Specifies the output push-pull or Output open-drain activation for the selected pins.
+                                    Example: GPIO_OTYPER_OT5_Pos */
+  uint32_t OSPEEDx_Pos;
+  eOSPEEDR OSPEEDR;               /*!< Specifies the speed for the selected pins.
+                                    Example: GPIO_OSPEEDR_OSPEED5_Pos */
+  uint32_t PUPDx_Pos;
+  ePUPDR   PUPDR;                 /*!< Specifies the Pull-up or Pull-Down activation for the selected pins.
+                                    Example: GPIO_PUPDR_PUPD5_Pos */
 } GpioConfig;
+
+void Set_Gpio(GpioConfig *cfg);
 
 #endif /* GPIO_H */
 #ifdef __cplusplus

@@ -16,6 +16,7 @@ extern "C"
 #define GPIO_H
 
 #include "stm32h750xx.h"
+#include "ErrHandler.h"
 
 #define GPIOA_CLK_ENABLE (RCC->AHB4ENR |= RCC_AHB4ENR_GPIOAEN);
 #define GPIOB_CLK_ENABLE (RCC->AHB4ENR |= RCC_AHB4ENR_GPIOBEN);
@@ -85,7 +86,7 @@ typedef struct
                                     Example: GPIO_PUPDR_PUPD5_Pos */
 } GpioConfig;
 
-void Set_Gpio(GpioConfig *cfg);
+ErrHandle_t Set_Gpio(GpioConfig *cfg);
 
 #endif /* GPIO_H */
 #ifdef __cplusplus
